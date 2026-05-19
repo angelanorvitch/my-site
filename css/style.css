@@ -39,7 +39,7 @@ svg {
   position: absolute;
   top: -2.5rem;
   left: 1rem;
-  background: #111827;
+  background: var(--text-strong);
   color: #ffffff;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
@@ -157,6 +157,12 @@ svg {
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
   border-radius: 1.25rem;
+  /* Ensure the card hugs its content and is centered vertically in the grid cell */
+  align-self: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .profile-card p {

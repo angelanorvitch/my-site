@@ -7,6 +7,7 @@
   const localPanel = el.querySelector('.weather-panel-local');
   const localTitle = localPanel.querySelector('.weather-panel-title');
   const localTempEl = localPanel.querySelector('.weather-temp');
+    ');
   const localDescEl = localPanel.querySelector('.weather-desc');
   const localEmojiEl = localPanel.querySelector('.weather-emoji');
   const minneapolisTempEl = minneapolisPanel.querySelector('.weather-temp');
@@ -93,7 +94,7 @@
       fetchLocationName(latitude, longitude);
     }, err=>{
       console.warn(err);
-      const funny = "Location blocked — I'm not secretly following you! Enable location to see your local weather.";
+      const funny = "LOCATION BLOCKED. I promise I'm not secretly following you! Enable location to see your local weather.";
       localTitle.textContent = funny;
       setPanelError(localTempEl, localDescEl, localEmojiEl, 'Location disabled');
     }, {timeout:10000});
