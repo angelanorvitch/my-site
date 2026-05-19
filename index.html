@@ -6,6 +6,52 @@
   <title>Angie | UX Designer</title>
   <meta name="description" content="Angie is a UX designer creating thoughtful, accessible user experiences for digital products." />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Weather widget styles: designed to blend with existing card styles */
+    .weather-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,250,0.9));
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(22,28,37,0.06);
+      width: 50%;
+      max-width: none;
+      box-sizing: border-box;
+      font-family: inherit;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .weather-emoji {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .weather-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .weather-location {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .weather-temp {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .weather-desc {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    @media (max-width: 640px) {
+      .weather-card { width: 100%; max-width: none; }
+    }
+    /* Add horizontal padding specifically for the Selected work section */
+    #work {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -45,6 +91,14 @@
           <p><strong>Role:</strong> UX Designer</p>
           <p><strong>Specialty:</strong> Product experience, accessibility, and human-first collaboration</p>
           <p><strong>Approach:</strong> Empathy-driven, research-led, simple interactions</p>
+        </div>
+        <div id="weather" class="weather-card" role="status" aria-live="polite">
+          <div class="weather-emoji" aria-hidden="true">☀️</div>
+          <div class="weather-info">
+            <div class="weather-location">Detecting location</div>
+            <div class="weather-temp">Loading…</div>
+            <div class="weather-desc">—</div>
+          </div>
         </div>
       </div>
     </section>
@@ -100,5 +154,100 @@
       <p>Designed by Angie — accessible, calm, and human-first.</p>
     </div>
   </footer>
+  <script>
+    (function(){
+      const el = document.getElementById('weather');
+      const tempEl = el.querySelector('.weather-temp');
+      const descEl = el.querySelector('.weather-desc');
+      const emojiEl = el.querySelector('.weather-emoji');
+
+      function setError(message){
+        tempEl.textContent = '—';
+        descEl.textContent = message;
+        emojiEl.textContent = '❗';
+      }
+
+      function codeToEmoji(code){
+        // Open-Meteo weathercode mapping simplified
+        if (code === 0) return '☀️';
+        if (code === 1 || code === 2) return '🌤️';
+        if (code === 3 || (code >= 45 && code <= 48)) return '☁️';
+        if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82) || (code >= 95 && code <= 99)) return '🌧️';
+        if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) return '❄️';
+        return '🌈';
+      }
+
+      function codeToDesc(code){
+        if (code === 0) return 'Clear';
+        if (code === 1 || code === 2) return 'Partly cloudy';
+        if (code === 3) return 'Overcast';
+        if (code >= 45 && code <= 48) return 'Fog';
+        if (code >= 51 && code <= 67) return 'Rain';
+        if (code >= 80 && code <= 82) return 'Showers';
+        if (code >= 71 && code <= 77) return 'Snow';
+        if (code >= 85 && code <= 86) return 'Snow showers';
+        if (code >= 95 && code <= 99) return 'Thunderstorm';
+        return 'Weather';
+      }
+
+      function fetchWeather(lat, lon){
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&timezone=auto`;
+        fetch(url).then(r=>{
+          if(!r.ok) throw new Error('Weather fetch failed');
+          return r.json();
+        }).then(data=>{
+          const w = data.current_weather;
+          if(!w){ setError('No current weather'); return; }
+          const t = Math.round(w.temperature);
+          const code = w.weathercode;
+          tempEl.textContent = `${t}°F`;
+          descEl.textContent = codeToDesc(code);
+          emojiEl.textContent = codeToEmoji(code);
+        }).catch(err=>{
+          setError('Unable to load weather');
+          console.error(err);
+        });
+      }
+
+      function fetchLocationName(lat, lon){
+        const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&count=1`;
+        fetch(url).then(r=>{
+          if(!r.ok) throw new Error('Geocode fetch failed');
+          return r.json();
+        }).then(data=>{
+          const res = data.results && data.results[0];
+          if(!res){ throw new Error('No geocode results'); }
+          let name = res.name || '';
+          if(res.admin1 && res.admin1 !== name) name += name ? `, ${res.admin1}` : res.admin1;
+          if(res.country && !name.includes(res.country)) name += name ? `, ${res.country}` : res.country;
+          const locationText = name || `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+          const locEl = el.querySelector('.weather-location');
+          if(locEl) locEl.textContent = locationText;
+        }).catch(err=>{
+          console.warn(err);
+          const locEl = el.querySelector('.weather-location');
+          if(locEl) locEl.textContent = 'Unknown location';
+        });
+      }
+
+      if (!navigator.geolocation){
+        setError('Geolocation not supported');
+      } else {
+        navigator.geolocation.getCurrentPosition(pos=>{
+          const {latitude, longitude} = pos.coords;
+          fetchWeather(latitude, longitude);
+          fetchLocationName(latitude, longitude);
+        }, err=>{
+          console.warn(err);
+          const locEl = el.querySelector('.weather-location');
+          const funny = "Location blocked — I'm not secretly following you! Enable location to see your local weather.";
+          if(locEl) locEl.textContent = funny;
+          tempEl.textContent = '—';
+          descEl.textContent = 'Location disabled';
+          emojiEl.textContent = '🤫';
+        }, {timeout:10000});
+      }
+    })();
+  </script>
 </body>
 </html>
