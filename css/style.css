@@ -82,7 +82,8 @@ svg {
 .site-header h1 {
   margin: 0 0 1rem;
   font-size: clamp(2.5rem, 5vw, 4rem);
-  max-width: 12ch;
+  line-height: 1.1;
+  max-width: 100%;
 }
 
 .site-header p {
