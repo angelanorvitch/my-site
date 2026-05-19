@@ -7,7 +7,6 @@
   const localPanel = el.querySelector('.weather-panel-local');
   const localTitle = localPanel.querySelector('.weather-panel-title');
   const localTempEl = localPanel.querySelector('.weather-temp');
-    ');
   const localDescEl = localPanel.querySelector('.weather-desc');
   const localEmojiEl = localPanel.querySelector('.weather-emoji');
   const minneapolisTempEl = minneapolisPanel.querySelector('.weather-temp');
