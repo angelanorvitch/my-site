@@ -99,3 +99,67 @@
     }, {timeout:10000});
   }
 })();
+
+(function(){
+  const stickyNav = document.querySelector('.sticky-nav-wrap');
+  if (!stickyNav) return;
+
+  function syncStickyNavShadow() {
+    stickyNav.classList.toggle('is-scrolled', window.scrollY > 12);
+  }
+
+  syncStickyNavShadow();
+  window.addEventListener('scroll', syncStickyNavShadow, { passive: true });
+})();
+
+(function(){
+  const dogSection = document.getElementById('dog-tax');
+  if (!dogSection) return;
+
+  const burstLayer = document.createElement('div');
+  burstLayer.className = 'dog-bone-burst';
+  burstLayer.setAttribute('aria-hidden', 'true');
+  dogSection.appendChild(burstLayer);
+
+  let canBurst = true;
+
+  function launchBones(){
+    if (!canBurst) return;
+    canBurst = false;
+
+    const fragment = document.createDocumentFragment();
+
+    for (let index = 0; index < 12; index += 1) {
+      const bone = document.createElement('span');
+      bone.className = 'dog-bone';
+      bone.textContent = '🦴';
+      bone.style.left = `${Math.random() * 100}%`;
+      bone.style.animationDelay = `${index * 0.06}s`;
+      bone.style.setProperty('--bone-drift', `${(Math.random() - 0.5) * 8}rem`);
+      bone.style.setProperty('--bone-rotate', `${(Math.random() - 0.5) * 240}deg`);
+      fragment.appendChild(bone);
+    }
+
+    burstLayer.replaceChildren(fragment);
+
+    window.setTimeout(() => {
+      burstLayer.replaceChildren();
+    }, 2200);
+
+    window.setTimeout(() => {
+      canBurst = true;
+    }, 3200);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        launchBones();
+      }
+    });
+  }, {
+    threshold: 0.35
+  });
+
+  observer.observe(dogSection);
+})();
