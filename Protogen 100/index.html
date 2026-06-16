@@ -5,23 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Angie | UX Designer</title>
   <meta name="description" content="Angie is a UX designer creating thoughtful, accessible user experiences for digital products." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
   <header class="site-header">
     <div class="content-wrap header-inner">
-      <div>
+      <div class="hero-copy">
+        <div class="hero-photo">
+          <img src="images/Angie.jpg" alt="Angie" />
+        </div>
         <p class="eyebrow">Hi, I’m Angie.</p>
         <h1>UX Designer focused on clarity, empathy, and delightful digital experiences.</h1>
         <p>Designing accessible, user-centered products that help people feel confident and supported.</p>
       </div>
       <nav aria-label="Primary navigation" class="primary-nav">
-        <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#process">Process</a>
-        <a href="#dog-tax">Dog Tax</a>
-        <a href="#contact">Contact</a>
+        <a href="#about"><span class="material-symbols-outlined nav-icon" aria-hidden="true">person</span>About</a>
+        <a href="#work"><span class="material-symbols-outlined nav-icon" aria-hidden="true">work</span>Work</a>
+        <a href="#process"><span class="material-symbols-outlined nav-icon" aria-hidden="true">route</span>Process</a>
+        <a href="#dog-tax"><span class="material-symbols-outlined nav-icon" aria-hidden="true">pets</span>Dog Tax</a>
+        <a href="#contact"><span class="material-symbols-outlined nav-icon" aria-hidden="true">mail</span>Contact</a>
       </nav>
     </div>
   </header>
@@ -30,10 +36,10 @@
     <section id="about" class="section">
       <div class="content-wrap">
         <div class="section-grid">
-          <div>
-            <p class="section-label">About</p>
+          <div class="about-copy">
+            <p class="section-label"><span class="material-symbols-outlined section-icon" aria-hidden="true">person</span>About</p>
             <h2>Human-centered design with a thoughtful touch</h2>
-            <p>I bring clarity to complex problems by blending research, interaction design, and visual empathy. My focus is on building intuitive, inclusive experiences that feel effortless for everyone.</p>
+            <p>I bring clarity and simplicity to complex problems through research, empathy, and visual and interactive design patterns. I desire to build intuitive, inclusive experiences that feel effortless for everyone who uses them. And to every project, I try to bring some GIFs and fun.</p>
             <ul>
               <li>Usability research & testing</li>
               <li>Information architecture</li>
@@ -41,15 +47,10 @@
               <li>Design systems and accessibility</li>
             </ul>
           </div>
-          <div class="profile-card" aria-label="Angie profile summary">
-            <p><strong>Name:</strong> Angie</p>
-            <p><strong>Role:</strong> UX Designer</p>
-            <p><strong>Specialty:</strong> Product experience, accessibility, and human-first collaboration</p>
-            <p><strong>Approach:</strong> Empathy-driven, research-led, simple interactions</p>
-          </div>
           <div id="weather" class="weather-card" role="status" aria-live="polite">
-            <div class="weather-header">
-              <p class="weather-headline">Minnesotans are always talking about the weather, so here’s our weather in Minneapolis compared to where you are:</p>
+            <div class="weather-intro">
+              <h2>Minnesota born and raised</h2>
+              <p>Born and raised in northern Minnesota where the mosquitos are the size of moths and winter lasts half the year taught me to appreciate that one 75 degree, sunny day with no rain, wind, or bugs that you get every 5 years in May.</p>
             </div>
             <div class="weather-panels">
               <article class="weather-panel weather-panel-minneapolis">
@@ -80,7 +81,7 @@
 
     <section id="work" class="section section-alt">
       <div class="content-wrap">
-        <p class="section-label">Selected work</p>
+        <p class="section-label"><span class="material-symbols-outlined section-icon" aria-hidden="true">work</span>Selected work</p>
         <h2>Designing meaningful experiences for real people</h2>
         <div class="card-grid">
           <article class="work-card">
@@ -101,20 +102,35 @@
 
     <section id="process" class="section">
       <div class="content-wrap">
-        <p class="section-label">Process</p>
+        <p class="section-label"><span class="material-symbols-outlined section-icon" aria-hidden="true">route</span>Process</p>
         <h2>Simple, collaborative, and evidence-based</h2>
         <div class="process-list">
           <article>
-            <h3>Explore</h3>
-            <p>Understand people, goals, and context through research, stakeholder workshops, and empathy mapping.</p>
+            <div class="process-card-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">travel_explore</span>
+            </div>
+            <div class="process-card-content">
+              <h3>Explore</h3>
+              <p>Understand people, goals, and context through research, stakeholder workshops, and empathy mapping.</p>
+            </div>
           </article>
           <article>
-            <h3>Design</h3>
-            <p>Create wireframes, prototypes, and content-first layouts that prioritize ease of use and clarity.</p>
+            <div class="process-card-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">draw</span>
+            </div>
+            <div class="process-card-content">
+              <h3>Design</h3>
+              <p>Create wireframes, prototypes, and content-first layouts that prioritize ease of use and clarity.</p>
+            </div>
           </article>
           <article>
-            <h3>Validate</h3>
-            <p>Test with real users, iterate based on feedback, and refine solutions for accessibility and delight.</p>
+            <div class="process-card-icon" aria-hidden="true">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <div class="process-card-content">
+              <h3>Validate</h3>
+              <p>Test with real users, iterate based on feedback, and refine solutions for accessibility and delight.</p>
+            </div>
           </article>
         </div>
       </div>
@@ -122,17 +138,27 @@
 
     <section id="dog-tax" class="section">
       <div class="content-wrap">
-        <p class="section-label">Dog Tax</p>
+        <p class="section-label"><span class="material-symbols-outlined section-icon" aria-hidden="true">pets</span>Dog Tax</p>
         <h2>Meet the furry members of the team</h2>
         <p>When I'm not designing for humans, I’m hanging out with my dogs, Nelson and Neal, the best creative collaborators and unofficial office morale boosters.</p>
         <div class="card-grid">
-          <article class="work-card">
-            <h3>Nelson</h3>
-            <p>Nelson is a black tri miniature American Shepherd with a mostly black face, white markings, and tan pips above his eyes. He’s always ready for a walk or a creative head tilt.</p>
+          <article class="work-card dog-card">
+            <div class="dog-card-media">
+              <img src="images/Nelson.png" alt="Nelson, a black tri miniature American Shepherd" />
+            </div>
+            <div class="dog-card-content">
+              <h3>Nelson</h3>
+              <p>Nelson is a 5-year-old Miniature American Shepherd who is a working man as a therapy dog. You can meet him at MSP airport sometime when he's working. He also loves to play fetch, eat food, steal the butter off the counter, and play barn hunt.</p>
+            </div>
           </article>
-          <article class="work-card">
-            <h3>Neal</h3>
-            <p>Neal is a red tri miniature American Shepherd with a red mask, white blaze, tan accents, and amber eyes. He brings playful energy and a loyal, sunny presence to the team.</p>
+          <article class="work-card dog-card">
+            <div class="dog-card-media">
+              <img src="images/Neal.jpg" alt="Neal, a red tri miniature American Shepherd" />
+            </div>
+            <div class="dog-card-content">
+              <h3>Neal</h3>
+              <p>Neal is a 1-year-old Miniature American Shepherd and anything but a therapist, but actually requiring more therapy for his mom. He's a wild man who will greet you with a jump all the way up to your face and a loud bark of excitement. He won first place in his very first barn hunt trial and clocks in at nearly 25mph in FastCAT.</p>
+            </div>
           </article>
         </div>
       </div>
@@ -140,7 +166,7 @@
 
     <section id="contact" class="section section-alt">
       <div class="content-wrap">
-        <p class="section-label">Contact</p>
+        <p class="section-label"><span class="material-symbols-outlined section-icon" aria-hidden="true">mail</span>Contact</p>
         <h2>Let's build something thoughtful together</h2>
         <p>If you’re looking for a UX designer who values accessibility, empathy, and polished execution, I’d love to connect.</p>
         <p class="contact-info"><strong>Email:</strong> <a href="mailto:hello@angiedesign.com">hello@angiedesign.com</a></p>
